@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")] // /api/users (Ist immer durch [controller] der Name vor dem Controller in dem Klassennamen)
-public class UsersController(DataContext context) : ControllerBase
+// /api/users (Ist immer durch [controller] der Name vor dem Controller in dem Klassennamen)
+public class UsersController(DataContext context) : BaseApiController
 {
     [HttpGet] // Jeder Controller darf jede HTTP Art nur genau einmal haben
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers() // Durch async, können mehrer Anfragen gesendet werden
