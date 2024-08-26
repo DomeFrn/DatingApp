@@ -1,5 +1,6 @@
 using API.Data;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ namespace API.Controllers;
 // /api/users (Ist immer durch [controller] der Name vor dem Controller in dem Klassennamen)
 public class UsersController(DataContext context) : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet] // Jeder Controller darf jede HTTP Art nur genau einmal haben
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers() // Durch async, können mehrer Anfragen gesendet werden
     {
@@ -16,6 +18,7 @@ public class UsersController(DataContext context) : BaseApiController
         return users;
     }
 
+    [Authorize]
     [HttpGet("{id}")] // Anfrage nimm zusätlich id als Argument entgegen => /api/users/id, Argument wird in der Anfrage verwendet
     public async Task<ActionResult<AppUser>> GetUsers(int id)
     {
