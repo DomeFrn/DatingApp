@@ -43,7 +43,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         if (user == null) return Unauthorized("Ungültiger Nutzername");
 
-        using var hmac = new HMACSHA512(user.PasswortSalt); // erzeugt Hash aus eigegeben Passwort 
+        using var hmac = new HMACSHA512(user.PasswortSalt); // erzeugt Hash aus eingegeben Passwort 
 
         var ComputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password)); 
 
