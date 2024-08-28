@@ -9,7 +9,7 @@ import { map } from 'rxjs';
 export class AccountService {
   private http = inject(HttpClient);
   baseUrl = 'https://localhost:5001/api/';
-  currentUser = signal<User | null>(null) // Ist null wenn niemand eingelogt ist, ist Type User, laso mit token und nutzername wenn jemand eingeloggt ist
+  currentUser = signal<User | null>(null) // Ist null wenn niemand eingeloggt ist, ist Type User, laso mit token und nutzername wenn jemand eingeloggt ist
 
   login(model: any) { // Schickt login anfrage an API und nutzt zurückgegebene Logindatne (wenn erfolgreich) und setzt diese auf currentUser (wird aufgereufen wenn Login gedrückt wird)
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
