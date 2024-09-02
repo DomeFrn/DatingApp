@@ -17,7 +17,9 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     {
         if (await UserExists(registerDto.Username)) return BadRequest("Nutzername bereits vergeben");
 
-        using var hmac = new HMACSHA512();
+        return Ok();
+
+        /* using var hmac = new HMACSHA512();
 
         var user = new AppUser
         {
@@ -34,6 +36,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
             Username = user.Username,
             Token = tokenService.CreateToken(user)
         };
+        */
     }
 
     [HttpPost("login")] //Http  Request für Anmeldung
