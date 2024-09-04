@@ -1,1 +1,57 @@
-<p>meber-detail works!</p>
+@if (member) {
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <img src="{{member.fotoURL || './assets/user.png'}}" alt="{{member.bekanntAls}}" class="card-img img-thumbnail">
+                <div class="card-body">
+                    <div>
+                        <strong>Standort:</strong>
+                        <p>{{member.stadt}}, {{member.land}}</p>
+                    </div>
+                    <div>
+                        <strong>Alter:</strong>
+                        <p>{{member.age}}</p>
+                    </div>
+                    <div>
+                        <strong>Zuletzt Aktiv am:</strong>
+                        <p>{{member.zuletztAktiv}}</p>
+                    </div>
+                    <div>
+                        <strong>Mitglied seit:</strong>
+                        <p>{{member.erstelltAm}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group d-flex">
+                        <button class="btn btn-primary">Like</button>
+                        <button class="btn btn-success">Nachricht</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <tabset class="member-tabset">
+                <tab heading="Über {{member.bekanntAls}}">
+                    <h4>Vorstellung</h4>
+                    <p>{{member.vorstellung}}</p>
+                    <h4>Sucht nach</h4>
+                    <p>{{member.suchtNach}}</p>
+                </tab>
+                <tab heading="Interessen">
+                    <h4>Interessen</h4>
+                    <p>{{member.interessen}}</p>
+                </tab>
+                <tab heading="Fotos">
+                    <h4>Fotos</h4>
+                    <p>Hier werden später die Fotos eingefügt</p>
+                </tab>
+                <tab heading="Nachrichten">
+                    <h4>Nachrichten</h4>
+                    <p>Hier kommen Später die Nachrichten rein</p>
+                </tab>
+            </tabset>
+        </div>
+
+    </div>
+}

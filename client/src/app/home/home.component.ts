@@ -9,14 +9,8 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-  http = inject(HttpClient);
+export class HomeComponent{
   registerMode = false;
-  users: any;
-
-  ngOnInit(): void {
-    this.getUser();
-  }
 
   registerToggle() {
     this.registerMode = !this.registerMode
@@ -24,13 +18,5 @@ export class HomeComponent implements OnInit {
 
   cancelRegisterMode(event: boolean) {
     this.registerMode = event;
-  }
-
-  getUser() {
-    this.http.get('https://localhost:5001/api/users').subscribe({
-      next: response => this.users = response,
-      error: error => console.log(error),
-      complete: () => console.log('Request has completed')
-    }) // es wird bei der initalisierung eine http Anfrage an den BackendApi gesendet und erstellt daraus ein Observable
   }
 }

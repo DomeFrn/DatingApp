@@ -2,16 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { User } from '../_models/user';
 import { map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   private http = inject(HttpClient);
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiURL;
   currentUser = signal<User | null>(null) // Ist null wenn niemand eingeloggt ist, ist Type User, laso mit token und nutzername wenn jemand eingeloggt ist
 
-  login(model: any) { // Schickt login anfrage an API und nutzt zurückgegebene Logindatne (wenn erfolgreich) und setzt diese auf currentUser (wird aufgereufen wenn Login gedrückt wird)
+  login(model: any) { // Schickt login anfrage an API und nutzt zurückgegebene Logindaten (wenn erfolgreich) und setzt diese auf currentUser (wird aufgereufen wenn Login gedrückt wird)
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map(user => {
         if (user) {

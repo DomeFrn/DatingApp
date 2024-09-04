@@ -19,9 +19,4 @@ public class AppUser
     public required string Stadt {get; set;}
     public required string Land {get; set;}
     public List<Foto> Fotos {get; set;} = []; 
-
-    //public int GetAge()
-    //{
-    //    return Geburtsdatum.CalculateAge();
-    //}
 }
