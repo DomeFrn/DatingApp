@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.Data;
 using API.DTOs;
 using API.Interface;
@@ -12,7 +13,7 @@ namespace API.Controllers;
 // /api/users (Ist immer durch [controller] der Name vor dem Controller in dem Klassennamen)
 
 [Authorize]
-public class UsersController(IUserRepository userRepository) : BaseApiController
+public class UsersController(IUserRepository userRepository, IMapper mapper) : BaseApiController
 {
     [HttpGet] // Jeder Controller darf jede HTTP Art nur genau einmal haben
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers() // Durch async, können mehrer Anfragen gesendet werden
@@ -30,5 +31,26 @@ public class UsersController(IUserRepository userRepository) : BaseApiController
         if (user == null) return NotFound(); // fängt ab, wenn zu der id kein User gefunden wurde
 
         return user;
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto) 
+    {
+        var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (username == null) return BadRequest("Kein Username gefunden");
+
+        var user = await userRepository.GetUserByUsernameAsync(username);
+
+        if (user == null) return  BadRequest("Kein User gefunden");
+
+        mapper.Map(memberUpdateDto, user);
+
+        if (await userRepository.SaveAllAsync())
+        {
+            return NoContent();
+        } 
+
+        return BadRequest("Nutzer Update Fehlgeschlagen");
     }
 }

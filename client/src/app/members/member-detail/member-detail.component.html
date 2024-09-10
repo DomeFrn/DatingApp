@@ -42,11 +42,13 @@
                     <h4>Interessen</h4>
                     <p>{{member.interessen}}</p>
                 </tab>
-                <tab heading="Fotos">
+                <tab heading="Fotos" #photoTab="tab">
                     <h4>Fotos</h4>
-                    <gallery [items] = "images" class="gallery">
+                    @if (photoTab.active) {
+                        <gallery [items] = "images" class="gallery">
                         
-                    </gallery>
+                        </gallery>
+                    }
                 </tab>
                 <tab heading="Nachrichten">
                     <h4>Nachrichten</h4>
